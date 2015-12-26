@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!--  Overwrite Convention
+  	<constant name="struts.i18n.reload" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.configuration.xml.reload" value="false" />
+    <constant name="struts.custom.i18n.resources" value="globalMessages" />
+    <constant name="struts.action.extension" value="action,," />
+
+    <constant name="struts.codebehind.defaultPackage" value="person" />
+    <constant name="struts.freemarker.manager.classname" value="customFreemarkerManager" />
+    <constant name="struts.serve.static" value="true" />
+    <constant name="struts.serve.static.browserCache" value="false" />-->
+    
+	<include file="struts-default.xml" />
+	<include file="struts-waterQualityManagement.xml" />
+</struts>

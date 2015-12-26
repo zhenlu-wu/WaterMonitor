@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SaleOrder" language="groovy" pageWidth="680" pageHeight="500" orientation="Landscape" columnWidth="660" leftMargin="10" rightMargin="10" topMargin="12" bottomMargin="10" uuid="3aed319b-22bf-4636-b80c-6b9ea79c4c4a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\Jaspersoft\\iReport-4.7.0\\ireport\\modules\\ext\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="chinaTotal" class="java.lang.String"/>
+	<parameter name="chinaTransportCondition" class="java.lang.String"/>
+	<parameter name="orderTitle" class="java.lang.String"/>
+	<parameter name="customInformation1" class="java.lang.String"/>
+	<parameter name="customInformation2" class="java.lang.String"/>
+	<parameter name="customInformation3" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[address]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="createTime" class="java.util.Date">
+		<fieldDescription><![CDATA[createTime]]></fieldDescription>
+	</field>
+	<field name="customerName" class="java.lang.String">
+		<fieldDescription><![CDATA[customerName]]></fieldDescription>
+	</field>
+	<field name="deliveryTime" class="java.lang.String">
+		<fieldDescription><![CDATA[deliveryTime]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="orderCreate" class="java.lang.String">
+		<fieldDescription><![CDATA[orderCreate]]></fieldDescription>
+	</field>
+	<field name="orderDetails" class="java.util.Set">
+		<fieldDescription><![CDATA[orderDetails]]></fieldDescription>
+	</field>
+	<field name="recoverBalance" class="java.lang.Double">
+		<fieldDescription><![CDATA[recoverBalance]]></fieldDescription>
+	</field>
+	<field name="remark" class="java.lang.String">
+		<fieldDescription><![CDATA[remark]]></fieldDescription>
+	</field>
+	<field name="requisitionCode" class="java.lang.Long">
+		<fieldDescription><![CDATA[requisitionCode]]></fieldDescription>
+	</field>
+	<field name="saleOrderCode" class="java.lang.String">
+		<fieldDescription><![CDATA[saleOrderCode]]></fieldDescription>
+	</field>
+	<field name="sales" class="java.lang.String">
+		<fieldDescription><![CDATA[sales]]></fieldDescription>
+	</field>
+	<field name="telephone1" class="java.lang.String">
+		<fieldDescription><![CDATA[telephone1]]></fieldDescription>
+	</field>
+	<field name="telephone2" class="java.lang.String">
+		<fieldDescription><![CDATA[telephone2]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<fieldDescription><![CDATA[total]]></fieldDescription>
+	</field>
+	<title>
+		<band height="48" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="138a11ab-bc0e-494c-beea-d72159220064" x="0" y="8" width="660" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="26" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{orderTitle}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e296d037-8caa-49bc-ab06-f28baed5532c" x="0" y="0" width="70" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[客户名称:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9640cee7-db83-440f-a297-7d7de5e7d9d9" x="0" y="20" width="70" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[送货地址:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9b902066-2256-42e6-84b3-7b0c083035a9" x="0" y="40" width="70" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[联系电话:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ea5322b0-f04e-4b25-943c-915f35cb852f" x="491" y="0" width="58" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[订单编号:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f050e891-eb03-48a9-8c7b-1c21c50ad24a" x="491" y="20" width="58" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[原始单号:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="463559ed-4486-4841-a8e4-2c4defa8dbaf" x="456" y="40" width="70" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[发货时间:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="daa40c1d-54e7-4739-aa05-85e057371be7" x="71" y="0" width="271" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c2eea9b7-1619-4802-8653-4bdd35b6044e" x="71" y="40" width="130" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telephone1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="15116bf1-4d26-430f-ae43-ab25b386ad0d" x="71" y="20" width="271" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7ee462b0-bd05-44a3-a8ff-ca1c2abc676f" x="549" y="20" width="111" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saleOrderCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e963b17d-8b99-49e4-a5ec-2a17b232212a" x="549" y="0" width="111" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{requisitionCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ff757577-bd2e-40e0-8d34-e40461c0c591" x="527" y="40" width="133" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deliveryTime}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="57138e86-03d3-4e52-b63f-3728a998e525" x="212" y="40" width="130" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telephone2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="40">
+			<subreport>
+				<reportElement uuid="46937787-1680-4861-a046-b004d8a7f86d" x="0" y="0" width="660" height="40"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderDetails})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SaleOrder_OrderDetail.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="189">
+			<staticText>
+				<reportElement uuid="405b86f6-52c6-481d-a789-97e925c030ac" x="0" y="0" width="62" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[金额合计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e3b010e0-134b-42cf-9b55-0428400416e3" x="62" y="0" width="62" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="13" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[大写合计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74ba36de-1cc3-484b-9fbb-d86e71ea7331" x="358" y="0" width="62" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="13" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[小写合计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="353a6a47-7582-444d-a3fc-ea7eb764c8f7" x="500" y="0" width="80" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="SansSerif" size="13" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[收回余额]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="58abc864-ea1c-402d-9b71-d415139358b1" x="580" y="0" width="80" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="13" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recoverBalance}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="168e5eae-3bdb-44e3-bced-ea7d24c7d306" x="420" y="0" width="80" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="13" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d993197c-8461-4ec8-a9b4-e70451df8b4b" x="124" y="0" width="234" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{chinaTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2c91b1ed-13e4-49b7-a6dc-1ad3e9c72fe5" x="0" y="20" width="62" height="54"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[备注]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6999afc0-b7d8-4767-9ef1-7316a5e1626b" stretchType="RelativeToTallestObject" x="62" y="20" width="416" height="54" isPrintWhenDetailOverflows="true"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{remark}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b8cfb9f7-7417-4ab6-9787-5f7bc0fd02d2" x="540" y="20" width="120" height="54"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{chinaTransportCondition}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8ae81a27-a15e-4db5-b63e-135eb71f0577" x="478" y="20" width="62" height="54"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[承运情况]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a98b4b61-5b95-47fc-b9e9-e7cab2daff51" x="276" y="74" width="384" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[白色联财务	红色联仓库	蓝色联客户	绿色联施工	黄色联出纳]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e95dec0e-cda9-406f-aef9-895676ea0e09" x="0" y="97" width="46" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[销售员:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d7a75d40-140d-475f-835a-dcd39d1be2a1" x="110" y="97" width="110" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[出纳员:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5d081c6-89de-4274-8cce-19ed0ac2f6a6" x="220" y="97" width="110" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[提货人:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ba6df7e0-a762-4cd9-a629-d5835d63316c" x="330" y="97" width="110" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[发货人:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="35ab6ab2-33d5-4246-a762-de51ece95f5c" x="440" y="97" width="110" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[审单人:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="56c873cf-68c5-4751-a161-2d781e4be88d" x="550" y="97" width="46" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[制单人:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e331af52-fe00-4dea-81d5-ad49d790d8bd" x="46" y="97" width="64" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sales}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="45756c31-c434-487f-88fb-b6bec76f6d80" x="596" y="97" width="64" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orderCreate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="47ec86fb-4298-402b-9e7a-aea901038046" x="388" y="129" width="76" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[客户签名:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6632da80-fdcb-4e7a-a219-f1267f1cb332" x="388" y="167" width="272" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[离开时间:		年	月	日	时]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="97a7b31f-f6b0-4a73-8f41-e95a74a93423" x="0" y="129" width="376" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customInformation1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="b50aa086-2967-4fc2-8b7d-e606795e5312" x="0" y="149" width="376" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customInformation2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ef912d28-0418-4259-a1dc-4801a49fa6ee" x="0" y="169" width="376" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customInformation3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

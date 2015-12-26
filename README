@@ -1,0 +1,12 @@
+1.Apache + tomcat 整合后 需要在 8009 端口设置URIEncoding = "UTF-8" 修复中文乱码问题
+2.用户与部门与员工的创建关联修复  删除关联移除待修复及用户删除关联移除
+
+     <action name="queryResourcesPageList" class="com.csair.gme.web.action.core.ResourcesAction"  
+02.method="queryResourcesPageList">           
+03.<result name="JSON" type="json">  
+04.    <param name="excludeProperties">.*Application$</param>  
+05.    <param name="includeProperties"></param>  
+06.    <param name="excludeNullProperties">true</param>  
+07.    <param name="ignoreHierarchy">false</param>  
+08.</result>  
+09.<result name="ERROR_REDIRECT" type="redirect">/common/error.jsp</result>  

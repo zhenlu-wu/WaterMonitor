@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
+
+
+    <display-name>Water</display-name>
+    <description>Water Quality System</description>
+
+
+    <!-- ==================== Define all xml location of root application context ================= -->
+
+    <!--
+        - Key of the system property that should specify the root directory of this
+        - web app. Applied by WebAppRootListener or Log4jConfigListener.
+    -->
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>water.root</param-value>
+    </context-param>
+
+    <!--
+      - Location of the XML file that defines the root application context
+      - Applied by ContextLoaderListener.
+    -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:conf/spring/applicationContext*.xml</param-value>
+    </context-param>
+
+
+    <!--
+        - Location of the Log4J config file, for initialization and refresh checks.
+        - Applied by Log4jConfigListener.
+    -->
+    
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:conf/log4j.properties</param-value>
+    </context-param>
+    <!---->
+
+
+    <!-- ==================== Define all path-mapped filters ================= -->
+
+    <!-- Filter to set character encoding on each request -->
+    <filter>
+        <filter-name>Set Character Encoding</filter-name>
+        <filter-class>com.asiasoft.javaee.util.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ignore</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>exposeInternals</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Set Character Encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	<!-- Filter of Spring Security Framework 
+	<filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
+    <!-- Filter of Struts2 -->
+    <filter>
+        <filter-name>struts</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+        <init-param>
+            <param-name>actionPackages</param-name>
+            <param-value>com.water.corebiz.web.struts.action</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>
+
+    
+   
+	<!-- -->
+
+    <!-- ==================== Define all listener ================= -->
+    <!--
+        The HttpSessionEventPublisher will publish HttpSessionCreatedEvent and HttpSessionDestroyedEvent
+        to the WebApplicationContext
+    -->
+	
+   
+  
+    <!--
+        - Loads the root application context of this web app at startup,
+        - by default from "applicationContext.xml".
+        - Note that you need to fall back to Spring's ContextLoaderServlet for
+        - JavaEE servers that do not follow the Servlet 2.4 initialization order.
+        -
+        - Use WebApplicationContextUtils.getWebApplicationContext(servletContext)
+        - to access it anywhere in the web application, outside of the framework.
+        -
+        - The root context is the parent of all servlet-specific contexts.
+        - This means that its beans are automatically available in these child contexts,
+        - both for getBean(name) calls and (external) bean references.
+  
+
+
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>org.springframework.security.ui.session.HttpSessionEventPublisher</listener-class>
+    </listener>
+      -->
+    
+    <!--
+        - Configures Log4J for this web app.
+        - As this context specifies a context-param "log4jConfigLocation", its file path
+        - is used to load the Log4J configuration, including periodic refresh checks.
+        -
+        - Would fall back to default Log4J initialization (non-refreshing) if no special
+        - context-params are given.
+     -->
+
+  
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+    <!-- ==================== Define default Session Configuration ================= 
+
+	<jsp-config>
+	   <taglib>
+	      <taglib-uri>http://springframework.org/security/tags</taglib-uri>
+	      <taglib-location>/WEB-INF/security.tld</taglib-location>
+	   </taglib>
+	</jsp-config>
+	
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+-->
+    <welcome-file-list>
+        <welcome-file>pages/home.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>

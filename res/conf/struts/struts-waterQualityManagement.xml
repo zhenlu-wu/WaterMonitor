@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+
+<struts>
+
+    <package name="waterQualityManagement" extends="json-default" namespace="/waterQualityManagement">
+		
+		
+        <action name="listWaterQualitys" 
+        	class="com.water.web.action.WaterQualityAction" 
+        	method="findWaterQualitys">
+            <result type="json">
+            	<param name="root">action</param>
+            </result> 
+            <result name="error">/pages/error.jsp</result>
+        </action>
+        
+        <action name="findRealTimesData" 
+        	class="com.water.web.action.WaterQualityAction" 
+        	method="findRealTimeWaterQualityTestData">
+            <result type="json">
+            	<param name="root">action</param>
+            </result> 
+            <result name="error">/pages/error.jsp</result>
+        </action>
+        
+        
+        
+        <action name="creatWaterQuality" 
+        	class="com.water.web.action.WaterQualityAction" 
+        	method="creatWaterQuality">
+             <result type="json">
+            	<param name="root">action</param>
+            </result> 
+            <result name="error">/pages/error.jsp</result>
+        </action>
+        
+        <action name="updateWaterQuality" 
+        	class="com.water.web.action.WaterQualityAction" 
+        	method="updateWaterQuality">
+             <result type="json">
+            	<param name="root">action</param>
+            </result> 
+            <result name="error">/pages/error.jsp</result>
+        </action>
+
+         
+        <action name="deteleWaterQualitys" 
+        	class="com.water.web.action.WaterQualityAction" 
+        	method="deteleWaterQualitys">
+            <result type="json">
+            	<param name="root">action</param>
+            </result>
+            <result name="error">/pages/error.jsp</result>
+        </action>
+	 </package>
+</struts>

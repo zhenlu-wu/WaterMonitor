@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings ** MySQL -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost/water</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+        <!-- Database connection settings ** Oracle -->
+        <!-- <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
+        <property name="connection.username">aerp</property>
+        <property name="connection.password">aerp</property> -->
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- <property name="dialect">org.hibernate.dialect.OracleDialect</property> -->
+
+        <mapping class="com.water.corebiz.entity.WaterQuality" />
+       
+		
+    </session-factory>
+
+</hibernate-configuration>

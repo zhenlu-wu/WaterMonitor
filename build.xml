@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Copyright 2009 AsiaSoft. All rights reserved.
+
+	Creation date: 2009-10-12
+	Author: Alex Zhang
+-->
+
+
+<project name="Water" default="all" basedir="." >
+	<!-- ===================== Global Property Definitions =========================== -->
+	<property file="build.properties" />
+
+	<property environment="env"/>
+	<property name="jdk.home" value="${env.JAVA_HOME}" />
+	<property name="tomcat.home" value="${env.TOMCAT_HOME}" />
+
+	<property name="src.home"   value="${basedir}/${src.home}" />
+	<property name="lib.home"   value="${basedir}/${lib.home}" />
+	<property name="res.home"   value="${basedir}/${res.home}" />
+	<property name="web.home"   value="${basedir}/${web.home}" />
+	<property name="docs.home"  value="${basedir}/${docs.home}" />
+	<property name="build.home" value="${basedir}/${build.home}" />
+	<property name="dist.home"  value="${basedir}/${dist.home}" />
+	<property name="test.home"  value="${basedir}/${test.home}" />
+
+	<property name="src.java.dir"      value="${src.home}/java" />
+    <property name="res.conf.dir"      value="${res.home}/conf" />
+	<property name="res.fonts.dir"      value="${res.home}/fonts" />
+    <property name="res.i18n.dir"      value="${res.home}/i18n" />
+	<property name="res.sql.dir"       value="${res.home}/sql" />
+    <property name="res.make.dir"      value="${res.home}/make" />
+	<property name="build.classes.dir" value="${build.home}/classes" />
+	<property name="build.lib.dir"     value="${build.home}/lib" />
+	<property name="build.sql.dir"     value="${build.home}/sql" />
+	<property name="build.docs.dir"    value="${build.home}/docs" />
+    <property name="docs.style.dir"    value="${docs.home}/style" />
+	<property name="test.java.dir"     value="${test.home}/java" />
+	<property name="test.classes.dir"  value="${test.home}/classes" />
+    <property name="test.output.dir"   value="${test.home}/output" />
+    <property name="test.reports.dir"  value="${test.home}/reports" />
+
+
+	<!--  ==================== Compilation Control Options ====================
+			These properties control option settings on the Javac compiler when it
+			is invoked using the <javac> task.
+			compile.debug        Should compilation include the debug option?
+			compile.deprecation  Should compilation include the deprecation option?
+			compile.optimize     Should compilation include the optimize option?
+			compile.encoding     Define the encoding which the compilation should use.
+	-->
+	<property name="compile.debug"       value="true"/>
+	<property name="compile.deprecation" value="true"/>
+	<property name="compile.optimize"    value="true"/>
+	<property name="compile.encoding"    value="UTF-8"/>
+
+
+	<!-- ===================== Compilation Classpath =========================== -->
+	<path id="classpath">
+        <pathelement location="${jdk.home}/lib/dt.jar"/>
+        <pathelement location="${jdk.home}/lib/tools.jar"/>
+        <fileset dir="${tomcat.home}">
+            <include name="lib/**/*.jar"/>
+		</fileset>
+		<fileset dir="${lib.home}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<pathelement location="${build.classes.dir}"/>
+		<pathelement location="${res.conf.dir}"/>
+		<pathelement location="${res.home}"/>
+	</path>
+	
+
+	        	
+	<!-- ===================== Build Targets below here =========================== -->
+	<target name="check-jdk" unless="jdk.present">
+		<fail>
+            Property "jdk.home" is set, but it does not seem
+            to point to the right directory.
+		</fail>
+	</target>
+	
+	<target name="check-environment" description="check environment">
+		<available property="jdk.present" file="${jdk.home}/lib/dt.jar"/>
+		<antcall target="check-jdk"/>
+	</target>      
+
+	<target name="init" depends="check-environment" description="initialize">
+		<!-- Create the time stamp -->
+		<tstamp />
+	</target>
+
+
+	<target name="clean" description="clean up">
+		<delete dir="${build.home}" />
+		<delete dir="${dist.home}" />
+	</target>
+
+
+	<target name="prepare" depends="clean" description="preparation steps can be placed here">
+	</target>
+
+
+	<target name="compile" depends="prepare" description="compile the source" >
+		<mkdir dir="${build.home}" />
+		<mkdir dir="${build.classes.dir}" />
+		<javac srcdir="${src.java.dir}"
+			destdir="${build.classes.dir}"
+			debug="${compile.debug}"
+			deprecation="${compile.deprecation}"
+			optimize="${compile.optimize}"
+			includes="**/*.java"
+			encoding="${compile.encoding}">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+
+	<target name="build" depends="compile">
+
+		<mkdir dir="${build.lib.dir}"/>
+		<jar destfile="${build.lib.dir}/water-util.jar">
+            <fileset dir="${build.classes.dir}">
+                <include name="com/water/util/**" />
+            </fileset>
+        </jar>
+        <jar destfile="${build.lib.dir}/water-corebiz.jar">
+			<fileset dir="${build.classes.dir}">
+				<include name="com/water/corebiz/**" />
+			</fileset>
+		</jar>
+       
+       
+        <jar destfile="${build.lib.dir}/water-web.jar">
+            <fileset dir="${build.classes.dir}">
+                <include name="com/water/web/**" />
+            </fileset>
+            <fileset dir="${res.conf.dir}/struts">
+                <include name="*.*" />
+            </fileset>
+        </jar>
+       
+
+	</target>
+
+
+    <target name="test-clean" description="clean up">
+        <delete dir="${test.classes.dir}" />
+        <delete dir="${test.output.dir}" />
+        <delete dir="${test.reports.dir}" />
+    </target>
+
+    <target name="test-prepare" depends="test-clean" description="preparation steps can be placed here">
+        <mkdir dir="${test.classes.dir}" />
+        <mkdir dir="${test.output.dir}" />
+        <mkdir dir="${test.reports.dir}" />
+    </target>
+    
+    <target name="test-compile" depends="test-prepare" description="compile test source files">
+        <javac srcdir="${test.java.dir}"
+               destdir="${test.classes.dir}"
+               debug="${compile.debug}"
+               deprecation="${compile.deprecation}"
+    	       optimize="${compile.optimize}"
+               includes="**/*.java"
+               encoding="${compile.encoding}">
+            <classpath refid="classpath" />
+        </javac>
+    </target>
+
+	<target name="test-service" depends="compile, test-compile" description="run service integration tests">
+		<junit printsummary="on"
+               fork="yes"
+               forkmode="perBatch"
+               haltonfailure="yes"
+               haltonerror="yes">
+			<jvmarg line="-Djava.awt.headless=true -Xmx256m -XX:MaxPermSize=128m" />
+			<classpath refid="classpath" />
+			<classpath location="${test.classes.dir}" />
+			<classpath location="${res.conf.dir}/misc" />
+			<classpath location="${res.conf.dir}/spring" />
+		    <classpath location="${res.conf.dir}/hibernate" />
+			<formatter type="brief" usefile="false" />
+			<formatter type="xml" />
+            <batchtest todir="${test.output.dir}">
+                <fileset dir="${test.classes.dir}" includes="**/*Test.class" excludes="**/Abstract*" />
+            </batchtest>
+        </junit>
+        <junitreport todir="${test.output.dir}">
+            <fileset dir="${test.output.dir}">
+		        <include name="TEST-*.xml" />
+            </fileset>
+            <report format="frames" todir="${test.reports.dir}" />
+        </junitreport>
+	</target>
+
+
+    <target name="dist" depends="build" description="generate the distribution">
+        
+        <mkdir dir="${dist.home}/${project.system.webapp.name}" />
+        <mkdir dir="${dist.home}/${project.system.webapp.name}/WEB-INF" />
+        <mkdir dir="${dist.home}/${project.system.webapp.name}/WEB-INF/lib" />
+        <mkdir dir="${dist.home}/${project.system.webapp.name}/WEB-INF/classes" />
+        <mkdir dir="${dist.home}/${project.system.webapp.name}/WEB-INF/classes/conf" />
+        <mkdir dir="${dist.home}/${project.system.webapp.name}/WEB-INF/classes/conf/spring" />
+        <mkdir dir="${dist.home}/${project.system.webapp.name}/WEB-INF/classes/conf/hibernate" />
+
+        <copy todir="${dist.home}/${project.system.webapp.name}">
+            <fileset dir="${web.home}">
+                <include name="**/**" />
+            </fileset>
+        </copy>
+
+        <copy todir="${dist.home}/${project.system.webapp.name}/WEB-INF/classes">
+            <fileset dir="${res.i18n.dir}">
+                <include name="*.*" />
+            </fileset>
+        	<fileset dir="${res.fonts.dir}">
+                <include name="*.*" />
+            </fileset>
+        </copy>
+
+        <copy todir="${dist.home}/${project.system.webapp.name}/WEB-INF/classes/conf">
+            <fileset dir="${res.conf.dir}">
+                <include name="*.*" />
+            </fileset>
+        </copy>
+        
+        <copy todir="${dist.home}/${project.system.webapp.name}/WEB-INF/classes/conf/spring">
+            <fileset dir="${res.conf.dir}/spring">
+                <include name="*.*" />
+            </fileset>
+        </copy>
+        
+        <copy todir="${dist.home}/${project.system.webapp.name}/WEB-INF/classes/conf/hibernate">
+            <fileset dir="${res.conf.dir}/hibernate">
+                <include name="*.*" />
+            </fileset>
+        </copy>
+
+        <copy todir="${dist.home}/${project.system.webapp.name}/WEB-INF/lib">
+            <fileset dir="${build.lib.dir}">
+            	<include name="water-util.jar"/>
+                <include name="water-corebiz.jar"/>
+                <include name="water-web.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/asiasoft">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/asf/commons">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/asf/jakarta">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/asf/logging">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/javaee">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/struts">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/spring">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/hibernate">
+                <include name="*.jar"/>
+            </fileset>
+             <fileset dir="${lib.home}/runtime/http">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/misc">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/misc/asm">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/misc/aspectj">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.home}/runtime/misc/jdbc">
+                <include name="*.jar"/>
+            </fileset>
+        	<fileset dir="${lib.home}/runtime/reports">
+                <include name="*.jar"/>
+            </fileset>
+            <!--
+            <fileset dir="${lib.home}/runtime/cxf">
+                <include name="*.jar"/>
+            </fileset>-->
+        </copy>
+
+        <!-- Create the <war> file -->
+        <jar jarfile="${dist.home}/${project.system.webapp.name}.war" basedir="${dist.home}/${project.system.webapp.name}" />
+    </target>
+    
+
+	<target name="deploy-war" depends="dist, undeploy" >
+		<copy file="${dist.home}/${project.system.webapp.name}.war" todir="${tomcat.home}/webapps" />
+	</target>
+
+	<target name="deploy-dir" depends="dist, undeploy">
+		<mkdir dir="${tomcat.home}/webapps/${project.system.webapp.name}" />
+		<copy todir="${tomcat.home}/webapps/${project.system.webapp.name}">
+			<fileset dir="${dist.home}/${project.system.webapp.name}"/>
+		</copy>
+	</target>
+
+	<target name="undeploy">
+		<delete file="${tomcat.home}/webapps/${project.system.webapp.name}.war" failonerror="false"/>
+		<delete dir="${tomcat.home}/webapps/${project.system.webapp.name}" failonerror="false"/>
+	</target>
+
+    <target name="javadoc" description="Create Javadoc API documentation">
+        <mkdir dir="${build.docs.dir}/api" />
+        <javadoc
+            packagenames="com.asiasoft.water.*"
+            sourcepath="${src.java.dir}"
+            destdir="${build.docs.dir}/api"
+            author="true" version="true" use="true" Verbose="false"
+            windowtitle="${project.name} Component API"
+            stylesheetfile="${docs.style.dir}/stylesheet.css"
+            doctitle="${project.name} Component"
+            bottom="Copyright &#169; 2009 AsiaSoft Institute Limited. All Rights Reserved.">
+            <classpath refid="classpath"/>
+            <fileset dir="src" defaultexcludes="yes">
+                <include name="com/water/**" />
+            </fileset>
+        </javadoc>
+    </target>
+
+
+    <target name="export-dbschema" depends="compile">
+        <echo message="Generating the appropriate SQL DDL... Store the result in a file or export it directly to the database." />
+        <taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask">
+            <classpath refid="classpath" />
+        </taskdef>
+        <taskdef name="annotationconfiguration" classname="org.hibernate.tool.ant.AnnotationConfigurationTask">
+            <classpath refid="classpath" />
+        </taskdef>
+        <delete dir="${build.sql.dir}" />
+        <delete dir="${build.docs.dir}/dbschema" />
+        <mkdir dir="${build.sql.dir}" />
+        <mkdir dir="${build.docs.dir}/dbschema" />
+        <hibernatetool destdir="${build.sql.dir}">
+            <classpath refid="classpath" />
+            <annotationconfiguration configurationfile="${res.make.dir}/hibernate.cfg.xml" />
+            <hbm2ddl
+                export="true"
+                update="false"
+                drop="true"
+                create="true"
+                delimiter=";"
+                outputfilename="db_table_schema.sql"
+                format="true"
+                haltonerror="false">
+            </hbm2ddl>
+            <hbm2doc destdir="${build.docs.dir}/dbschema" />
+        </hibernatetool>
+    </target>
+
+
+    <!-- For MySQL -->
+	<target name="initialize-database" depends="export-dbschema">
+        <echo message="Initializing database... If error occurs,let it be." />
+        <sql
+        	driver="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost/water"
+            userid="root"
+            password="root"
+            src="${res.sql.dir}/db_table_init.sql"
+        	encoding="UTF-8"
+            onerror="continue">
+          <classpath refid="classpath"/>
+        </sql>
+    </target>
+    
+    <!-- For Oracle -->
+	<!-- <target name="initialize-database" depends="export-dbschema">
+        <echo message="Initializing database... If error occurs,let it be." />
+        <sql
+            driver="oracle.jdbc.driver.OracleDriver"
+            url="jdbc:oracle:thin:@localhost:1521:xe"
+            userid="water"
+            password="water"
+            src="${res.sql.dir}/db_table_init.sql"
+            encoding="UTF-8"
+            onerror="continue">
+          <classpath refid="classpath"/>
+        </sql>
+    </target> -->
+
+
+    <target name="startbanner">
+        <echo>${company.name}</echo>
+		<echo>    Building ${project.system.name}  Starting...    </echo>
+        <echo>+-------------------------------------------+</echo>
+    </target>
+
+    <target name="endbanner">
+        <echo>+-------------------------------------------+</echo>
+        <echo>    Finished ${project.system.name}  Successful!!!  </echo>
+        <echo>${company.name}</echo>
+    </target>
+
+	<target name="all" depends="startbanner, init, deploy-dir, endbanner" description="execute the all targets"/>
+	
+</project>
